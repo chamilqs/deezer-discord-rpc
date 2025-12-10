@@ -20,6 +20,30 @@
 * Includes an ad-blocker, so it can block Deezer ads, Google Analytics, Sentry requests...
 * Supports songs, radios, personal songs (MP3s), podcasts
 
+## Implementations
+
+This project is available in two implementations:
+
+### TypeScript/Electron (Main)
+
+The original Electron-based version with full features and auto-updates. Best for most users.
+
+### C++ Implementation (Native Alternative)
+
+A native Qt6-based implementation with significantly lower memory footprint (~150-200 MB vs 300-500 MB) and faster startup. See the [`cpp/`](cpp/) directory for details.
+
+**Advantages:**
+- 40-60% lower memory usage
+- Faster startup time
+- Smaller binary size
+- Native performance
+
+**Limitations:**
+- Auto-updater not yet implemented
+- Requires manual build (see [cpp/BUILD.md](cpp/BUILD.md))
+
+Choose the implementation that best fits your needs. Both versions provide the same core functionality.
+
 <table>
 <tr>
 <td align="center"><img src=".github/screenshots/rpc.png" alt="RPC on profile"><br /><i>RPC on profile</i></td>
@@ -61,10 +85,24 @@ brew install --cask cutetenshii/stuff/deezer-discord-rpc
 
 ## Building from Source
 
+### TypeScript/Electron Version
+
 1. Clone the repository: `git clone https://github.com/CuteTenshii/deezer-discord-rpc`
 2. Install the dependencies with bun (package manager): `bun install`
 3. To build the app for release, run: `bun run build`
 4. If you want to run it in development mode, run: `bun run start`
+
+### C++ Version
+
+See the [C++ Build Instructions](cpp/BUILD.md) for detailed platform-specific build instructions.
+
+Quick start:
+```bash
+cd cpp
+./build.sh  # Linux/macOS
+# or
+build.bat   # Windows
+```
 
 ## Tray Menu Options
 
