@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.3.7
+Name=Deezer Discord RPC
+GenericName=Deezer Discord Rich Presence
+Comment=Discord Rich Presence integration for Deezer
+Exec=DeezerDiscordRPC
+Icon=deezer-discord-rpc
+Terminal=false
+Type=Application
+Categories=AudioVideo;Audio;Player;Network;
+Keywords=deezer;discord;music;rpc;rich-presence;
+StartupNotify=true
+StartupWMClass=DeezerDiscordRPC
