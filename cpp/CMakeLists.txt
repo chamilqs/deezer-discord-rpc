@@ -17,7 +17,7 @@ find_package(Qt6 REQUIRED COMPONENTS Core Widgets WebEngineWidgets Network)
 # find_package(discord-rpc REQUIRED)
 
 # Option 2: Add as git submodule (recommended)
-# Execute: git submodule add https://github.com/discord/discord-rpc external/discord-rpc
+# Execute from cpp directory: git submodule add https://github.com/discord/discord-rpc external/discord-rpc
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/external/discord-rpc/CMakeLists.txt")
     set(BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
     add_subdirectory(external/discord-rpc)
@@ -28,7 +28,7 @@ else()
     if(NOT DISCORD_RPC_LIBRARY OR NOT DISCORD_RPC_INCLUDE_DIR)
         message(WARNING "discord-rpc not found. Please either:")
         message("  1. Install discord-rpc system-wide, or")
-        message("  2. Add it as a git submodule: git submodule add https://github.com/discord/discord-rpc cpp/external/discord-rpc")
+        message("  2. Add it as a git submodule from cpp directory: git submodule add https://github.com/discord/discord-rpc external/discord-rpc")
         message("  3. Or manually download and place discord-rpc in cpp/external/discord-rpc")
     endif()
 endif()

@@ -3,6 +3,7 @@
 #include "DiscordRPC.h"
 #include <QWebEngineProfile>
 #include <QWebEngineSettings>
+#include <QWebEngineNewWindowRequest>
 #include <QCloseEvent>
 #include <QResizeEvent>
 #include <QDebug>
@@ -74,7 +75,29 @@ void DeezerWindow::initWebView() {
             this, &DeezerWindow::onConsoleMessage);
 
     // Handle new window requests (OAuth popups)
-    m_webView->page()->setUrlRequestInterceptor(nullptr); // TODO: Implement ad-blocking
+    // Note: OAuth login is handled through official Deezer login flows.
+    // The application does not store or transmit credentials - all authentication
+    // is handled by Deezer's servers and stored in Qt's cookie/session storage.
+    // Future enhancement: implement URL-based ad-blocking interceptor here
+    connect(m_webView->page(), &QWebEnginePage::newWindowRequested,
+            [this](QWebEngineNewWindowRequest &request) {
+        QString url = request.requestedUrl().toString();
+        
+        // Allow OAuth popups for login
+        if (url.contains("facebook.com") || 
+            url.contains("accounts.google.com") || 
+            url.contains("apple.com")) {
+            
+            QWebEngineView* popup = new QWebEngineView();
+            popup->setWindowTitle("Deezer Login");
+            popup->resize(800, 600);
+            popup->show();
+            popup->load(request.requestedUrl());
+            request.openIn(popup->page());
+        } else {
+            request.openIn(nullptr); // Deny
+        }
+    });
 
     // Load Deezer
     QUrl url("https://account.deezer.com/login/");

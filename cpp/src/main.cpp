@@ -63,12 +63,8 @@ private:
     bool m_isFirstInstance;
 };
 
-// Resource initialization
-void initResources() {
-    // Register resources
-    // In a real build, this would be done via .qrc file
-    // For now, we'll use file paths directly
-}
+// Resource initialization is handled by Qt's resource system via the .qrc file
+// Qt automatically registers resources at startup when compiled with AUTORCC
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
@@ -78,9 +74,6 @@ int main(int argc, char *argv[]) {
     QApplication::setApplicationVersion("1.3.7");
     QApplication::setOrganizationName("DeezerDiscordRPC");
     QApplication::setOrganizationDomain("deezer-discord-rpc");
-
-    // Initialize resources
-    initResources();
 
     qDebug() << "Deezer Discord RPC version" << QApplication::applicationVersion() << "(C++ Implementation)";
 

@@ -3,7 +3,6 @@
     <qresource>
         <file>resources/icons/app.png</file>
         <file>resources/icons/app.ico</file>
-        <file>resources/icons/app.icns</file>
         <file>resources/icons/tray.png</file>
         <file>resources/icons/play.png</file>
         <file>resources/icons/pause.png</file>

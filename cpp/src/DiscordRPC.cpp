@@ -69,34 +69,30 @@ void DiscordRPC::updatePresence(
         return;
     }
 
+    // Convert QString to QByteArray and keep them alive for the duration of Discord_UpdatePresence
+    QByteArray detailsData = details.toUtf8();
+    QByteArray stateData = state.toUtf8();
+    QByteArray largeImageKeyData = largeImageKey.toUtf8();
+    QByteArray largeImageTextData = largeImageText.toUtf8();
+    QByteArray buttonLabelData = buttonLabel.toUtf8();
+    QByteArray buttonUrlData = buttonUrl.toUtf8();
+
     DiscordRichPresence presence;
     std::memset(&presence, 0, sizeof(presence));
 
-    // Convert QString to char* (need to keep strings alive)
-    static QByteArray detailsData;
-    static QByteArray stateData;
-    static QByteArray largeImageKeyData;
-    static QByteArray largeImageTextData;
-    static QByteArray buttonLabelData;
-    static QByteArray buttonUrlData;
-
     if (!details.isEmpty()) {
-        detailsData = details.toUtf8();
         presence.details = detailsData.constData();
     }
 
     if (!state.isEmpty()) {
-        stateData = state.toUtf8();
         presence.state = stateData.constData();
     }
 
     if (!largeImageKey.isEmpty()) {
-        largeImageKeyData = largeImageKey.toUtf8();
         presence.largeImageKey = largeImageKeyData.constData();
     }
 
     if (!largeImageText.isEmpty()) {
-        largeImageTextData = largeImageText.toUtf8();
         presence.largeImageText = largeImageTextData.constData();
     }
 
@@ -109,11 +105,8 @@ void DiscordRPC::updatePresence(
     }
 
     // Discord RPC supports up to 2 buttons
-    static DiscordButton buttons[1];
+    DiscordButton buttons[1];
     if (!buttonLabel.isEmpty() && !buttonUrl.isEmpty()) {
-        buttonLabelData = buttonLabel.toUtf8();
-        buttonUrlData = buttonUrl.toUtf8();
-        
         std::memset(buttons, 0, sizeof(buttons));
         buttons[0].label = buttonLabelData.constData();
         buttons[0].url = buttonUrlData.constData();
